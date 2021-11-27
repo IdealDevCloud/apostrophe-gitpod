@@ -7,10 +7,8 @@ tasks:
       mongod --dbpath /workspace/data
 
   - name: Apostrophe init
-    before: apos create app
-    command: |
-      apos create app
-      gp sync-done app      
+    before: gp sync-done app
+    command: bash -c "'' | apos create app"
 
   - name: Install node-modules
     init: gp sync-await app
