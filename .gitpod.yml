@@ -6,12 +6,10 @@ tasks:
     command: |
       mongod --dbpath /workspace/data
 
-  - name: Apostrophe init
-    before: gp sync-done app
-    command: bash -c "'' | apos create app"
-
-  - name: Install node-modules
-    init: gp sync-await app
+  - before: bash -c "'' | apos create app"
+    command: gp sync-done app
+    
+  - before: gp sync-await app
     command: |
       cd ${GITPOD_REPO_ROOT}/app && npm install
       gp sync-done node-modules
