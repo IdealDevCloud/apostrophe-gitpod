@@ -2,8 +2,10 @@ image:
   file: .gitpod.Dockerfile
 
 tasks:
-  - before: mkdir -p /workspace/data
-    command: mongod --dbpath /workspace/data && apos create app
+  - before: mkdir -p /workspace/data && apos create app
+    command: |
+      mongod --dbpath /workspace/data
+      apos create app
     name: DB LOG
   - init: cd ${GITPOD_REPO_ROOT}/app && npm install
     command: cd ${GITPOD_REPO_ROOT}/app && npm run dev
