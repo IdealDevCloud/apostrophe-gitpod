@@ -6,10 +6,17 @@ tasks:
     command: |
       mongod --dbpath /workspace/data
       apos create app
-    name: DB LOG
-  - init: cd ${GITPOD_REPO_ROOT}/app && npm install
+      gp sync-done app
+
+  - init: gp sync-await app
+    command: |
+      cd ${GITPOD_REPO_ROOT}/app && npm install
+      gp sync-done node-modules
+
+  - name: DEV SHELL
+    init: gp sync-await node-modules
     command: cd ${GITPOD_REPO_ROOT}/app && npm run dev
-    name: DEV SHELL
+    
 
 ports:
   - port: 3000
