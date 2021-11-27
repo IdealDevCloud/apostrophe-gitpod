@@ -1,0 +1,20 @@
+image:
+  file: .gitpod.Dockerfile
+
+tasks:
+  - before: mkdir -p /workspace/data
+    command: mongod --dbpath /workspace/data && apos create app
+    name: DB LOG
+  - init: cd ${GITPOD_REPO_ROOT}/app && npm install
+    command: cd ${GITPOD_REPO_ROOT}/app && npm run dev
+    name: DEV SHELL
+
+ports:
+  - port: 3000
+    onOpen: open-preview      
+
+vscode:
+  extensions:
+    - eamodio.gitlens
+    - akosyakov.gitpod-monitor
+    - redhat.vscode-yaml
