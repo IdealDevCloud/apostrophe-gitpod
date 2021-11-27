@@ -2,13 +2,18 @@ image:
   file: .gitpod.Dockerfile
 
 tasks:
-  - before: mkdir -p /workspace/data && apos create app
+  - before: mkdir -p /workspace/data
     command: |
       mongod --dbpath /workspace/data
-      apos create app
-      gp sync-done app
 
-  - init: gp sync-await app
+  - name: Apostrophe init
+    before: apos create app
+    command: |
+      apos create app
+      gp sync-done app      
+
+  - name: Install node-modules
+    init: gp sync-await app
     command: |
       cd ${GITPOD_REPO_ROOT}/app && npm install
       gp sync-done node-modules
